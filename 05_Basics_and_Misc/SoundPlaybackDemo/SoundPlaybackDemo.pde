@@ -26,12 +26,6 @@ void mousePressed() {
 
   //再生（効果音など）
   item_sound.play();
-
-  if (item_sound.isPlaying()) {
-    // 再生中なら
-  } else {
-    // じゃなかったら
-  }
 }
 
 void keyPressed() {
