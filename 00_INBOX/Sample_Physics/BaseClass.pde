@@ -4,7 +4,7 @@
 class BaseClass {
 
   float x, y; //位置
-  float vx, vy; //加速度
+  float vx = 0, vy = 0; //速度
   float w, h; //サイズ
   PImage img; //画像
 
@@ -14,8 +14,6 @@ class BaseClass {
     this.y = y;
     this.w = w;
     this.h = h;
-    this.vx = 0;
-    this.vy = 0;
     this.img = null;
   }
 
