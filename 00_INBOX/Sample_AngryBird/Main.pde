@@ -1,0 +1,213 @@
+// ===== Angry Bird ゲーム =====
+
+ArrayList<BaseClass> gameObjects;
+Slingshot slingshot;
+ArrayList<Bird> birds;
+ArrayList<Structure> structures;
+ArrayList<Pig> pigs;
+
+// ゲーム変数
+int score;
+int birds_remaining;
+float camera_x;
+boolean mouse_dragging;
+
+// 初期化処理
+void setup() {
+  size(1280, 720);
+  frameRate(60);
+
+  // 基本設定
+  rectMode(CORNER);
+  ellipseMode(CORNER);
+  textAlign(CENTER, CENTER);
+
+  // リスト初期化
+  gameObjects = new ArrayList<BaseClass>();
+  birds = new ArrayList<Bird>();
+  structures = new ArrayList<Structure>();
+  pigs = new ArrayList<Pig>();
+
+  init_game();
+}
+
+void draw() {
+  background(135, 206, 235);
+
+  // カメラ設定
+  pushMatrix();
+  translate(-camera_x, 0);
+
+  // オブジェクト更新・描画
+  for (BaseClass obj : gameObjects) {
+    obj.update();
+    obj.draw();
+  }
+
+  // カメラとゲーム処理
+  update_camera();
+  check_collisions();
+
+  popMatrix();
+
+  // UI表示
+  drawUI();
+  check_game_end();
+}
+
+// ゲーム初期化
+void init_game() {
+  score = 0;
+  birds_remaining = 3;
+  mouse_dragging = false;
+
+  // リストクリア
+  gameObjects.clear();
+  birds.clear();
+  structures.clear();
+  pigs.clear();
+
+  // オブジェクト作成
+  slingshot = new Slingshot(100, 500);
+  gameObjects.add(slingshot);
+
+  // 地面
+  Structure ground = new Structure(0, 650, 1600, 70, 1);
+  ground.is_static = true;
+  structures.add(ground);
+  gameObjects.add(ground);
+
+  // 構造物
+  structures.add(new Structure(500, 550, 20, 100, 0));
+  structures.add(new Structure(520, 530, 80, 20, 0));
+  structures.add(new Structure(600, 550, 20, 100, 0));
+  gameObjects.add(structures.get(1));
+  gameObjects.add(structures.get(2));
+  gameObjects.add(structures.get(3));
+
+  // 豚
+  Pig pig = new Pig(540, 510, 30, 30);
+  pigs.add(pig);
+  gameObjects.add(pig);
+}
+
+// カメラ更新
+void update_camera() {
+  Bird flying_bird = null;
+  for (Bird bird : birds) {
+    if (bird.is_launched && !bird.is_exploded) {
+      flying_bird = bird;
+      break;
+    }
+  }
+
+  if (flying_bird != null) {
+    camera_x = flying_bird.x - width / 4;
+  } else {
+    camera_x = slingshot.x - width / 4;
+  }
+  camera_x = constrain(camera_x, 0, 1000);
+}
+
+// 衝突判定
+void check_collisions() {
+  for (Bird bird : birds) {
+    if (bird.is_launched && !bird.is_exploded) {
+      // 鳥と構造物
+      for (Structure structure : structures) {
+        if (isColliding(bird, structure)) {
+          structure.destroy();
+          resolveCollision(bird, structure);
+        }
+      }
+
+      // 鳥と豚
+      for (Pig pig : pigs) {
+        if (isColliding(bird, pig)) {
+          pig.destroy();
+          resolveCollision(bird, pig);
+        }
+      }
+    }
+  }
+}
+
+// ゲーム終了判定
+void check_game_end() {
+  boolean all_dead = true;
+  for (Pig pig : pigs) {
+    if (pig.is_alive) {
+      all_dead = false;
+      break;
+    }
+  }
+
+  if (all_dead) {
+    fill(0, 255, 0);
+    textSize(48);
+    text("CLEAR!", width/2, height/2);
+    textSize(32);
+    text("Score: " + score, width/2, height/2 + 50);
+  }
+
+  if (birds_remaining <= 0 && birds.size() == 0 && !all_dead) {
+    fill(255, 0, 0);
+    textSize(48);
+    text("GAME OVER", width/2, height/2);
+  }
+}
+
+// UI表示
+void drawUI() {
+  fill(255);
+  textAlign(LEFT, CENTER);
+  textSize(20);
+  text("Score: " + score, 20, 30);
+  text("Birds: " + birds_remaining, 20, 60);
+
+  int alive_pigs = 0;
+  for (Pig pig : pigs) {
+    if (pig.is_alive) alive_pigs++;
+  }
+  text("Pigs: " + alive_pigs, 20, 90);
+  textAlign(CENTER, CENTER);
+}
+
+// キーボード入力
+void keyPressed() {
+  if (key == 'r' || key == 'R') {
+    init_game();
+  }
+}
+
+// マウス入力
+void mousePressed() {
+  if (!mouse_dragging && birds_remaining > 0) {
+    float world_x = mouseX + camera_x;
+    float world_y = mouseY;
+
+    if (world_x > slingshot.x - 30 && world_x < slingshot.x + slingshot.w + 30 &&
+        world_y > slingshot.y - 30 && world_y < slingshot.y + slingshot.h + 30) {
+      mouse_dragging = true;
+      slingshot.start_aiming(world_x, world_y);
+    }
+  }
+}
+
+void mouseDragged() {
+  if (mouse_dragging) {
+    slingshot.update_aim(mouseX + camera_x, mouseY);
+  }
+}
+
+void mouseReleased() {
+  if (mouse_dragging && birds_remaining > 0) {
+    Bird bird = slingshot.launch_bird();
+    if (bird != null) {
+      birds.add(bird);
+      gameObjects.add(bird);
+      birds_remaining--;
+    }
+    mouse_dragging = false;
+  }
+}
