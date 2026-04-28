@@ -55,15 +55,6 @@ class BaseClass {
     this.img = img;
   }
 
-  // 衝突判定（別のオブジェクト other とぶつかっているかを調べます）
-  // これは「AABB (Axis-Aligned Bounding Box)」と呼ばれる、四角形同士のシンプルな当たり判定です。
-  boolean onCollision(BaseClass other) {
-    return (x < other.x + other.w &&    // 自分の左端が、相手の右端より左にある
-            x + w > other.x &&          // 自分の右端が、相手の左端より右にある
-            y < other.y + other.h &&    // 自分の上端が、相手の下端より上にある
-            y + h > other.y);           // 自分の下端が、相手の上端より下にある
-  }
-
 }
 
 /*

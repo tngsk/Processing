@@ -22,6 +22,13 @@
 - [pong_game_05d](./01_Games_and_Interactive/pong_game_05d)
 - [pong_pad_05b](./01_Games_and_Interactive/pong_pad_05b)
 - [rpg_enemies_250620c](./01_Games_and_Interactive/rpg_enemies_250620c)
+- [sample_2d_top_down](./01_Games_and_Interactive/sample_2d_top_down)
+- [sample_angry_bird](./01_Games_and_Interactive/sample_angry_bird)
+- [sample_catch](./01_Games_and_Interactive/sample_catch)
+- [sample_dodge](./01_Games_and_Interactive/sample_dodge)
+- [sample_platformer](./01_Games_and_Interactive/sample_platformer)
+- [sample_rpg](./01_Games_and_Interactive/sample_rpg)
+- [sample_shooting](./01_Games_and_Interactive/sample_shooting)
 
 ## 02_Animation_and_Physics
 - [Balls](./02_Animation_and_Physics/Balls)
@@ -32,6 +39,8 @@
 - [bouncing_ball_04b](./02_Animation_and_Physics/bouncing_ball_04b)
 - [bouncing_ball_04c](./02_Animation_and_Physics/bouncing_ball_04c)
 - [dvd_logo_bounce_250516d](./02_Animation_and_Physics/dvd_logo_bounce_250516d)
+- [sample_animation](./02_Animation_and_Physics/sample_animation)
+- [sample_physics](./02_Animation_and_Physics/sample_physics)
 - [simple_x_motion](./02_Animation_and_Physics/simple_x_motion)
 
 ## 03_Drawing_and_Visuals
@@ -51,6 +60,7 @@
 - [custom_shape_hsb](./03_Drawing_and_Visuals/custom_shape_hsb)
 - [loops_circles_250430a](./03_Drawing_and_Visuals/loops_circles_250430a)
 - [loops_circles_250502i](./03_Drawing_and_Visuals/loops_circles_250502i)
+- [sample_stars](./03_Drawing_and_Visuals/sample_stars)
 - [simple_points_250409a](./03_Drawing_and_Visuals/simple_points_250409a)
 - [transformations_250425g](./03_Drawing_and_Visuals/transformations_250425g)
 - [transformations_250501f](./03_Drawing_and_Visuals/transformations_250501f)
@@ -92,6 +102,7 @@
 - [misc_250620b](./05_Basics_and_Misc/misc_250620b)
 - [misc_250620d](./05_Basics_and_Misc/misc_250620d)
 - [misc_250714a](./05_Basics_and_Misc/misc_250714a)
+- [sample_sound](./05_Basics_and_Misc/sample_sound)
 - [serial_receive_arduino](./05_Basics_and_Misc/serial_receive_arduino)
 - [serial_send_arduino](./05_Basics_and_Misc/serial_send_arduino)
 - [sketch_01_kadai_0](./05_Basics_and_Misc/sketch_01_kadai_0)
