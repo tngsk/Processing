@@ -19,10 +19,7 @@ class BaseClass {
 
   //コンストラクタ（画像も設定する）
   BaseClass(float x, float y, float w, float h, PImage img) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
+    this(x, y, w, h); // 画像なしコンストラクタを呼び出す（コードの共通化）
     this.img = img;
   }
 
@@ -44,14 +41,6 @@ class BaseClass {
   //画像を設定する
   void setImage(PImage img) {
     this.img = img;
-  }
-
-  //衝突判定
-  boolean onCollision(BaseClass other) {
-    return (x < other.x + other.w &&
-            x + w > other.x &&
-            y < other.y + other.h &&
-            y + h > other.y);
   }
 
 }
