@@ -183,3 +183,97 @@
      isDownKeyPressed = false;
    }
  }
+
+// --- Added from Obstacle.pde ---
+// 障害物クラス
+class Obstacle extends BaseClass {
+
+  float moveSpeed;
+  color obstacleColor;
+  boolean isActive;
+
+  Obstacle(float x, float y, float w, float h) {
+    super(x, y, w, h);
+    this.moveSpeed = 2.0;
+    this.obstacleColor = color(255, 100, 100);
+    this.isActive = true;
+
+    // 移動方向を設定
+    if (y < 0) {
+      this.vy = moveSpeed; // 上から下へ
+    } else if (y > height) {
+      this.vy = -moveSpeed; // 下から上へ
+    } else if (x < 0) {
+      this.vx = moveSpeed; // 左から右へ
+    } else if (x > width) {
+      this.vx = -moveSpeed; // 右から左へ
+    }
+  }
+
+  void update() {
+    super.update();
+
+    // 画面外に出たら非アクティブ
+    if (this.x < -50 || this.x > width + 50 || this.y < -50 || this.y > height + 50) {
+      this.isActive = false;
+    }
+  }
+
+  void draw() {
+    if (isActive) {
+      fill(obstacleColor);
+      super.draw();
+    }
+  }
+}
+
+// --- Added from Player.pde ---
+// 避けゲーム用プレイヤークラス
+class Player extends BaseClass {
+
+  float moveSpeed;
+  int lives;
+
+  Player(float x, float y, float w, float h) {
+    super(x, y, w, h);
+    this.moveSpeed = 4.0;
+    this.lives = 3;
+  }
+
+  void handleInput() {
+    // 移動入力
+    if (isLeftKeyPressed) {
+      this.vx = -moveSpeed;
+    } else if (isRightKeyPressed) {
+      this.vx = moveSpeed;
+    } else {
+      this.vx = 0;
+    }
+
+    if (isUpKeyPressed) {
+      this.vy = -moveSpeed;
+    } else if (isDownKeyPressed) {
+      this.vy = moveSpeed;
+    } else {
+      this.vy = 0;
+    }
+  }
+
+  void takeDamage() {
+    lives--;
+  }
+
+  void update() {
+    handleInput();
+    super.update();
+
+    // 画面境界チェック（画面内で自由移動）
+    this.x = constrain(this.x, 0, width - this.w);
+    this.y = constrain(this.y, 0, height - this.h);
+  }
+
+  void draw() {
+    fill(100, 255, 100); // 緑色
+    super.draw();
+  }
+}
