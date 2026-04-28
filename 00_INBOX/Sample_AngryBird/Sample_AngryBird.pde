@@ -211,3 +211,194 @@ void mouseReleased() {
     mouse_dragging = false;
   }
 }
+
+// --- Added from Bird.pde ---
+class Bird extends BaseClass {
+
+  boolean is_launched;
+  boolean is_exploded;
+  int still_timer;
+
+  Bird(float x, float y, float w, float h) {
+    super(x, y, w, h);
+    this.is_launched = false;
+    this.is_exploded = false;
+    this.still_timer = 0;
+  }
+
+  void launch(float vel_x, float vel_y) {
+    this.vx = vel_x;
+    this.vy = vel_y;
+    this.is_launched = true;
+  }
+
+  void update() {
+    if (this.is_launched && !this.is_exploded) {
+      applyGravity(this, 0.25);
+      super.update();
+
+      // 地面跳ね返り
+      if (this.y > 620) {
+        this.y = 620;
+        this.vy = -this.vy * 0.6;
+        this.vx *= 0.9;
+      }
+
+      // 壁跳ね返り
+      if (this.x < 0) {
+        this.x = 0;
+        this.vx = -this.vx * 0.6;
+      }
+      if (this.x > 1580) {
+        this.x = 1580;
+        this.vx = -this.vx * 0.6;
+      }
+
+      // 静止判定
+      if (abs(this.vx) < 0.5 && abs(this.vy) < 0.5) {
+        this.still_timer++;
+        if (this.still_timer > 120) {
+          this.is_exploded = true;
+        }
+      } else {
+        this.still_timer = 0;
+      }
+    }
+  }
+
+  void draw() {
+    if (!this.is_exploded) {
+      fill(255, 0, 0);
+      ellipse(this.x, this.y, this.w, this.h);
+    }
+  }
+}
+
+// --- Added from Pig.pde ---
+class Pig extends BaseClass {
+
+  boolean is_alive;
+
+  Pig(float x, float y, float w, float h) {
+    super(x, y, w, h);
+    this.is_alive = true;
+  }
+
+  void destroy() {
+    if (this.is_alive) {
+      this.is_alive = false;
+      score += 100;
+    }
+  }
+
+  void update() {
+    if (this.is_alive) {
+      applyGravity(this, 0.25);
+      super.update();
+
+      if (this.y > 620) {
+        this.y = 620;
+        this.vy = 0;
+        this.vx *= 0.8;
+      }
+
+      checkBounds(this, 0, 0, 1600, 720, 0.3);
+    }
+  }
+
+  void draw() {
+    if (this.is_alive) {
+      fill(0, 255, 0);
+      ellipse(this.x, this.y, this.w, this.h);
+    }
+  }
+}
+
+// --- Added from Slingshot.pde ---
+class Slingshot extends BaseClass {
+
+  boolean is_aiming;
+  float aim_x, aim_y;
+
+  Slingshot(float x, float y) {
+    super(x, y, 40, 60);
+    this.is_aiming = false;
+  }
+
+  void start_aiming(float mouse_x, float mouse_y) {
+    this.is_aiming = true;
+    this.aim_x = mouse_x;
+    this.aim_y = mouse_y;
+  }
+
+  void update_aim(float mouse_x, float mouse_y) {
+    this.aim_x = mouse_x;
+    this.aim_y = mouse_y;
+  }
+
+  Bird launch_bird() {
+    if (!this.is_aiming) return null;
+
+    float dx = (this.x + this.w/2) - this.aim_x;
+    float dy = (this.y + this.h/2) - this.aim_y;
+
+    Bird bird = new Bird(this.x + this.w/2, this.y + this.h/2, 20, 20);
+    bird.launch(dx * 0.2, dy * 0.2);
+
+    this.is_aiming = false;
+    return bird;
+  }
+
+  void draw() {
+    fill(139, 69, 19);
+    rect(this.x, this.y, this.w, this.h);
+
+    if (this.is_aiming) {
+      stroke(255, 0, 0);
+      line(this.x + this.w/2, this.y + this.h/2, this.aim_x, this.aim_y);
+      noStroke();
+    }
+  }
+}
+
+// --- Added from Structure.pde ---
+class Structure extends BaseClass {
+
+  boolean is_destroyed;
+  boolean is_static;
+
+  Structure(float x, float y, float w, float h, int type) {
+    super(x, y, w, h);
+    this.is_destroyed = false;
+    this.is_static = (type == 1);
+  }
+
+  void destroy() {
+    if (!this.is_destroyed) {
+      this.is_destroyed = true;
+      score += 50;
+    }
+  }
+
+  void update() {
+    if (!this.is_destroyed && !this.is_static) {
+      applyGravity(this, 0.25);
+      super.update();
+
+      if (this.y > 620) {
+        this.y = 620;
+        this.vy = 0;
+        this.vx *= 0.7;
+      }
+
+      checkBounds(this, 0, 0, 1600, 720, 0.3);
+    }
+  }
+
+  void draw() {
+    if (!this.is_destroyed) {
+      fill(139, 69, 19);
+      rect(this.x, this.y, this.w, this.h);
+    }
+  }
+}

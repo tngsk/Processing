@@ -100,3 +100,90 @@ void keyReleased() {
     isRightKeyPressed = false;
   }
 }
+
+// --- Added from Item.pde ---
+// キャッチゲーム用アイテムクラス
+class Item extends BaseClass {
+
+  String itemType;
+  int value;
+  color itemColor;
+  boolean isCollected;
+
+  Item(float x, float y, float w, float h, String type) {
+    super(x, y, w, h);
+    this.itemType = type;
+    this.isCollected = false;
+
+    // アイテムタイプに応じた設定
+    if (type.equals("coin")) {
+      this.value = 10;
+      this.itemColor = color(255, 255, 0); // 黄色
+    } else if (type.equals("gem")) {
+      this.value = 50;
+      this.itemColor = color(255, 100, 255); // マゼンタ
+    } else {
+      this.value = 100;
+      this.itemColor = color(100, 255, 100); // 緑色
+    }
+
+    // 下向きに落下
+    this.vy = 3.0;
+  }
+
+  void update() {
+    super.update();
+
+    // 画面外に出たら削除
+    if (this.y > height + 50) {
+      this.isCollected = true;
+    }
+  }
+
+  void collect() {
+    this.isCollected = true;
+  }
+
+  void draw() {
+    if (!isCollected) {
+      fill(itemColor);
+      super.draw();
+    }
+  }
+}
+
+// --- Added from Player.pde ---
+// キャッチゲーム用プレイヤークラス
+class Player extends BaseClass {
+
+  float moveSpeed;
+
+  Player(float x, float y, float w, float h) {
+    super(x, y, w, h);
+    this.moveSpeed = 5.0;
+  }
+
+  void handleInput() {
+    // 左右移動のみ
+    if (isLeftKeyPressed) {
+      this.vx = -moveSpeed;
+    } else if (isRightKeyPressed) {
+      this.vx = moveSpeed;
+    } else {
+      this.vx = 0;
+    }
+  }
+
+  void update() {
+    handleInput();
+    super.update();
+
+    // 画面境界チェック（左右のみ）
+    this.x = constrain(this.x, 0, width - this.w);
+  }
+
+  void draw() {
+    fill(100, 150, 255); // 青色
+    super.draw();
+  }
+}
