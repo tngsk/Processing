@@ -1,8 +1,15 @@
 # Project Index
 
 ## 01_Games_and_Interactive
+- [AngryBirdsStyleGame](./01_Games_and_Interactive/AngryBirdsStyleGame)
 - [Billiard](./01_Games_and_Interactive/Billiard)
+- [CatchGame](./01_Games_and_Interactive/CatchGame)
+- [DodgeGame](./01_Games_and_Interactive/DodgeGame)
+- [PacManStyleGame](./01_Games_and_Interactive/PacManStyleGame)
 - [PingPong](./01_Games_and_Interactive/PingPong)
+- [PlatformerScrollingGame](./01_Games_and_Interactive/PlatformerScrollingGame)
+- [RPGItemCollection](./01_Games_and_Interactive/RPGItemCollection)
+- [ShooterGame](./01_Games_and_Interactive/ShooterGame)
 - [drop](./01_Games_and_Interactive/drop)
 - [drop_player](./01_Games_and_Interactive/drop_player)
 - [drop_player_one_item](./01_Games_and_Interactive/drop_player_one_item)
@@ -26,6 +33,8 @@
 ## 02_Animation_and_Physics
 - [Balls](./02_Animation_and_Physics/Balls)
 - [DVDLogo](./02_Animation_and_Physics/DVDLogo)
+- [PhysicsBouncingBalls](./02_Animation_and_Physics/PhysicsBouncingBalls)
+- [SpriteAnimationDemo](./02_Animation_and_Physics/SpriteAnimationDemo)
 - [ball_dvd](./02_Animation_and_Physics/ball_dvd)
 - [ball_physics](./02_Animation_and_Physics/ball_physics)
 - [bouncing_ball_04a](./02_Animation_and_Physics/bouncing_ball_04a)
@@ -37,6 +46,7 @@
 ## 03_Drawing_and_Visuals
 - [Gradation](./03_Drawing_and_Visuals/Gradation)
 - [Japanese_font](./03_Drawing_and_Visuals/Japanese_font)
+- [StarfieldSimulation](./03_Drawing_and_Visuals/StarfieldSimulation)
 - [arc_drawing](./03_Drawing_and_Visuals/arc_drawing)
 - [bar_chart_loop_250501a](./03_Drawing_and_Visuals/bar_chart_loop_250501a)
 - [basic_drawing_250411c](./03_Drawing_and_Visuals/basic_drawing_250411c)
@@ -69,6 +79,7 @@
 
 ## 05_Basics_and_Misc
 - [Dra](./05_Basics_and_Misc/Dra)
+- [SoundPlaybackDemo](./05_Basics_and_Misc/SoundPlaybackDemo)
 - [misc_250407b](./05_Basics_and_Misc/misc_250407b)
 - [misc_250407c](./05_Basics_and_Misc/misc_250407c)
 - [misc_250409c](./05_Basics_and_Misc/misc_250409c)
