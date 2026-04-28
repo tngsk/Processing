@@ -26,10 +26,7 @@ class BaseClass {
   // コンストラクタその2（画像を一緒に設定する場合）
   // ※ 引数（カッコの中身）のパターンが違う同じ名前のコンストラクタを作ることを「オーバーロード」と呼びます。
   BaseClass(float x, float y, float w, float h, PImage img) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
+    this(x, y, w, h); // 画像なしコンストラクタを呼び出す（コードの共通化）
     this.img = img;
   }
 
