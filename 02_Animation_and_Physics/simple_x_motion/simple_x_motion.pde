@@ -1,3 +1,6 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 // 等加速度直線運動シミュレーション（X軸のみ）
 // x = x0 + v0 * t + 0.5 * a * t^2 の公式を使用
 
@@ -12,7 +15,7 @@ float ballRadius = 20; // ボールの半径
 float trackHeight = 300; // トラックの高さ
 
 // グラフ表示用の変数
-ArrayList<PVector> positionHistory = new ArrayList<PVector>();
+Deque<PVector> positionHistory = new ArrayDeque<PVector>();
 int maxHistoryPoints = 300;
 float graphHeight = 200;
 float graphTop = 400;
@@ -35,9 +38,9 @@ void draw() {
   
   // 位置の履歴を記録
   if (frameCount % 3 == 0) { // フレームレートを下げて記録
-    positionHistory.add(new PVector(t, x));
+    positionHistory.addLast(new PVector(t, x));
     if (positionHistory.size() > maxHistoryPoints) {
-      positionHistory.remove(0);
+      positionHistory.removeFirst();
     }
   }
   
@@ -120,16 +123,16 @@ void drawPositionTimeGraph() {
   if (positionHistory.size() > 1) {
     stroke(255, 0, 0);
     strokeWeight(2);
-    for (int i = 0; i < positionHistory.size() - 1; i++) {
-      PVector p1 = positionHistory.get(i);
-      PVector p2 = positionHistory.get(i+1);
-      
-      float x1 = map(p1.x, 0, 5, 50, width - 50);
-      float y1 = map(p1.y, 0, 800, graphTop + graphHeight, graphTop);
-      float x2 = map(p2.x, 0, 5, 50, width - 50);
-      float y2 = map(p2.y, 0, 800, graphTop + graphHeight, graphTop);
-      
-      line(x1, y1, x2, y2);
+    PVector prev = null;
+    for (PVector p : positionHistory) {
+      if (prev != null) {
+        float x1 = map(prev.x, 0, 5, 50, width - 50);
+        float y1 = map(prev.y, 0, 800, graphTop + graphHeight, graphTop);
+        float x2 = map(p.x, 0, 5, 50, width - 50);
+        float y2 = map(p.y, 0, 800, graphTop + graphHeight, graphTop);
+        line(x1, y1, x2, y2);
+      }
+      prev = p;
     }
     strokeWeight(1);
   }
