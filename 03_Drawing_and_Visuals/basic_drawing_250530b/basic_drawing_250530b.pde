@@ -57,8 +57,9 @@ void draw() {
   strokeWeight(10);
   //line(ball_x, ball_y, world_x, world_y);
 
-  float d = dist(ball_x, ball_y, world_x, world_y);
-  if (d < 120) {
+  float dx = ball_x - world_x;
+  float dy = ball_y - world_y;
+  if (dx * dx + dy * dy < 14400) {
     // 当たった！
     point += 10;
     
