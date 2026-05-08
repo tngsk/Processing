@@ -70,10 +70,20 @@ void setup() {
 }
 
 // --- 連番画像読み込み ---
+import java.util.HashMap;
+HashMap<String, PImage> imageCache = new HashMap<String, PImage>();
+
 PImage[] loadFrames(String path, int count) {
   PImage[] frames = new PImage[count];
   for (int i = 0; i < count; i++) {
-    frames[i] = loadImage(path + "_" + i + ".png");
+    String filename = path + "_" + i + ".png";
+    if (imageCache.containsKey(filename)) {
+      frames[i] = imageCache.get(filename);
+    } else {
+      PImage img = loadImage(filename);
+      imageCache.put(filename, img);
+      frames[i] = img;
+    }
   }
   return frames;
 }
