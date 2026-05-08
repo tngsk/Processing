@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 // ===== 方向キーでアニメーション切り替えデモ =====
 
 /*
@@ -69,11 +71,18 @@ void setup() {
   currentAnim = idleAnim;
 }
 
+// 画像キャッシュ
+HashMap<String, PImage> imageCache = new HashMap<String, PImage>();
+
 // --- 連番画像読み込み ---
 PImage[] loadFrames(String path, int count) {
   PImage[] frames = new PImage[count];
   for (int i = 0; i < count; i++) {
-    frames[i] = loadImage(path + "_" + i + ".png");
+    String filename = path + "_" + i + ".png";
+    if (!imageCache.containsKey(filename)) {
+      imageCache.put(filename, loadImage(filename));
+    }
+    frames[i] = imageCache.get(filename);
   }
   return frames;
 }
