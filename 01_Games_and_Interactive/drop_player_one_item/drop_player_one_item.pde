@@ -83,8 +83,9 @@ void draw() {
 
 
   // 当たり判定 とりあえず円の方式（距離）を使う
-  float d1 = dist(fruit1_x, fruit1_y, player_x, player_y);
-  if ( d1 < 50 ) {
+  float dx = fruit1_x - player_x;
+  float dy = fruit1_y - player_y;
+  if ( (dx*dx + dy*dy) < 2500 ) {
     // 距離が短いので当たった
     fruit1_flag = false; // フルーツ1フラグを false にする
     // アイテム取った時の処理などをここに書いても良い
