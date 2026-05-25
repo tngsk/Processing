@@ -1,4 +1,4 @@
-# Project Index
+# Processing Projects Index
 
 ## 01_Games_and_Interactive
 - [AngryBirdsStyleGame](./01_Games_and_Interactive/AngryBirdsStyleGame)
@@ -122,3 +122,17 @@
 - [sketch_01_kadai_3](./05_Basics_and_Misc/sketch_01_kadai_3)
 - [sketch_01_kadai_4](./05_Basics_and_Misc/sketch_01_kadai_4)
 - [sound_player_250718b](./05_Basics_and_Misc/sound_player_250718b)
+
+## 06_Templates
+- [Template_BaseObject](./06_Templates/Template_BaseObject)
+- [Template_Camera](./06_Templates/Template_Camera)
+- [Template_PlatformerMove](./06_Templates/Template_PlatformerMove)
+- [Template_SceneManager](./06_Templates/Template_SceneManager)
+- [Template_TopDownMove](./06_Templates/Template_TopDownMove)
+
+## 06_Templates
+- [Template_BaseObject](./06_Templates/Template_BaseObject)
+- [Template_Camera](./06_Templates/Template_Camera)
+- [Template_PlatformerMove](./06_Templates/Template_PlatformerMove)
+- [Template_SceneManager](./06_Templates/Template_SceneManager)
+- [Template_TopDownMove](./06_Templates/Template_TopDownMove)
