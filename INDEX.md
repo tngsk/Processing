@@ -33,7 +33,6 @@
 - [sample_angry_bird](./01_Games_and_Interactive/sample_angry_bird)
 - [sample_catch](./01_Games_and_Interactive/sample_catch)
 - [sample_dodge](./01_Games_and_Interactive/sample_dodge)
-- [sample_platformer](./01_Games_and_Interactive/sample_platformer)
 - [sample_rpg](./01_Games_and_Interactive/sample_rpg)
 - [sample_shooting](./01_Games_and_Interactive/sample_shooting)
 
