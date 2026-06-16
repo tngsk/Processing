@@ -11,8 +11,10 @@ void setup() {
   size(800, 600);
 
   // Configuration via environment variables with defaults
-  serialPort = System.getenv("SERIAL_PORT");
-  if (serialPort == null) {
+  String envPort = System.getenv("SERIAL_PORT");
+  if (envPort != null && envPort.matches("^[a-zA-Z0-9._/-]+$")) {
+    serialPort = envPort;
+  } else {
     serialPort = "/dev/cu.usbmodem101"; // Default port
   }
 
@@ -20,6 +22,9 @@ void setup() {
   if (envBaud != null) {
     try {
       baudRate = Integer.parseInt(envBaud);
+      if (baudRate < 300 || baudRate > 1000000) {
+        baudRate = 9600;
+      }
     } catch (NumberFormatException e) {
       baudRate = 9600;
     }
