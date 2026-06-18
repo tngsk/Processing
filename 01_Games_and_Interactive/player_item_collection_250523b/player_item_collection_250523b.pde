@@ -58,10 +58,11 @@ void draw() {
   player_x = mouseX;
   player_y = mouseY;
 
-  // プレイヤーとアイテムの座標の距離を計算して、変数distanceに代入する
-  float distance1 = dist(player_x, player_y, item1_x, item1_y);
+  // プレイヤーとアイテムの座標の距離を計算する
+  float dx1 = player_x - item1_x;
+  float dy1 = player_y - item1_y;
   // 距離が一定以下だっら
-  if (distance1 < 25) {
+  if ((dx1 * dx1 + dy1 * dy1) < 625) {
     // アイテムを消す
     item1_flag = false;
     
@@ -91,8 +92,9 @@ void draw() {
 
 
   // アイテム2の場合
-  float distance2 = dist(player_x, player_y, item2_x, item2_y);
-  if (distance2 < 25) {
+  float dx2 = player_x - item2_x;
+  float dy2 = player_y - item2_y;
+  if ((dx2 * dx2 + dy2 * dy2) < 625) {
     // アイテムを画面のどこかに配置する
     item2_x = random(width);
     item2_y = random(height);
