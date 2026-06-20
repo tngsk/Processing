@@ -176,8 +176,9 @@ void draw() {
   }
 
   //oniと自分の当たり判定
-  float d = dist(ball_x, ball_y, oni_x, oni_y);
-  if ( d < 0 ) {
+  float dx = ball_x - oni_x;
+  float dy = ball_y - oni_y;
+  if ( (dx*dx + dy*dy) < 0 ) {
     background(#F205E7);
 
     textAlign(CENTER, CENTER);//ichi
